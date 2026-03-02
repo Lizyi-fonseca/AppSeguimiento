@@ -10,6 +10,7 @@ class RolesAdministrativosController extends Controller
      public function index()
     {
         // Traer todos los registros de la tabla
+        
         $roles = roles_administrativos::all();
 
         // Envia los datos a la vista
