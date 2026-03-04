@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/Programas', [ProgramaDeFormacionController::class, 'index'])->name('programas.index');
+Route::get('/Programas/index', [ProgramaDeFormacionController::class, 'index'])->name('programas.index');
 Route::get('/Programas/create', [ProgramaDeFormacionController::class, 'create'])->name('programas.create');
 Route::post('/Programas/store', [ProgramaDeFormacionController::class, 'store'])->name('programas.store');
 Route::get('/Programas/edit/{nis}', [ProgramaDeFormacionController::class, 'edit'])->name('programas.edit');
@@ -22,21 +22,21 @@ Route::put('/programas/update/{nis}', [ProgramaDeFormacionController::class, 'up
 Route::get('/Programas/show/{nis}', [ProgramaDeFormacionController::class, 'show'])->name('programas.show');
 Route::delete('/Programas/delete/{nis}', [ProgramaDeFormacionController::class, 'destroy'])->name('programas.delete');
 
-Route::get('/Roles_administrativos',[RolesAdministrativosController::class, 'index'])->name('RolesAdministrativos.index');
-Route::get('/Roles_administrativos/create',[RolesAdministrativosController::class, 'create'])->name('roles_administrativos.create');
-Route::get('/Roles_administrativos/store',[RolesAdministrativosController::class, 'store'])->name('roles_administrativos.store');
-Route::get('/Roles_administrativos/edit/{nis}',[RolesAdministrativosController::class, 'edit'])->name('roles_administrativos.edit');
-Route::get('/Roles_administrativos/update/{nis}',[RolesAdministrativosController::class, 'update'])->name('roles_administrativos.update');
-Route::get('/Roles_administrativos/show/{nis}',[RolesAdministrativosController::class, 'show'])->name('roles_administrativos.show');
-Route::get('/Roles_administrativos/delete/{nis}',[RolesAdministrativosController::class, 'destroy'])->name('roles_administrativos.delete');
+Route::get('/Roles_administrativos/index', [RolesAdministrativosController::class, 'index'])->name('RolesAdministrativos.index');
+Route::get('/Roles_administrativos/create', [RolesAdministrativosController::class, 'create'])->name('RolesAdministrativos.create');
+Route::post('/Roles_administrativos/store', [RolesAdministrativosController::class, 'store'])->name('RolesAdministrativos.store');
+Route::get('/Roles_administrativos/edit/{nis}', [RolesAdministrativosController::class, 'edit'])->name('RolesAdministrativos.edit');
+Route::put('/Roles_administrativos/update/{nis}', [RolesAdministrativosController::class, 'update'])->name('RolesAdministrativos.update');
+Route::get('/Roles_administrativos/show/{nis}', [RolesAdministrativosController::class, 'show'])->name('RolesAdministrativos.show');
+Route::delete('/Roles_administrativos/delete/{nis}', [RolesAdministrativosController::class, 'destroy'])->name('RolesAdministrativos.delete');
 
-Route::get('/Regionales',[RegionalesController::class, 'index'])->name('Regionales.index');
-Route::get('/Regionales/create',[RegionalesController::class, 'create'])->name('Regionales.create');
-Route::get('/Regionales/store',[RegionalesController::class, 'store'])->name('Regionales.store');
-Route::get('/Regionales/edit/{nis}',[RegionalesController::class, 'edit'])->name('Regionales.edit');
-Route::get('/Regionales/update/{nis}',[RegionalesController::class, 'update'])->name('Regionales.update');
-Route::get('/Regionales/show/{nis}',[RegionalesController::class, 'show'])->name('Regionales.show');
-Route::get('/Regionales/delete/{nis}',[RegionalesController::class, 'destroy'])->name('Regionales.delete');
+Route::get('/Regionales/index', [RegionalesController::class, 'index'])->name('Regionales.index');
+Route::get('/Regionales/create', [RegionalesController::class, 'create'])->name('Regionales.create');
+Route::get('/Regionales/store', [RegionalesController::class, 'store'])->name('Regionales.store');
+Route::get('/Regionales/edit/{nis}', [RegionalesController::class, 'edit'])->name('Regionales.edit');
+Route::get('/Regionales/update/{nis}', [RegionalesController::class, 'update'])->name('Regionales.update');
+Route::get('/Regionales/show/{nis}', [RegionalesController::class, 'show'])->name('Regionales.show');
+Route::get('/Regionales/delete/{nis}', [RegionalesController::class, 'destroy'])->name('Regionales.delete');
 
 Route::get('/Eps', [EpsController::class, 'index'])
     ->name('Eps.index');

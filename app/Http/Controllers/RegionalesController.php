@@ -12,9 +12,9 @@ class RegionalesController extends Controller
 {
     public function index()
     {
-        $regional = regionales::all();
+        $regionales = regionales::all();
 
-        return view('Regionales.index', compact('Regionales'));
+        return view('Regionales.index', compact('regionales'));
     }
 
     public function create ()

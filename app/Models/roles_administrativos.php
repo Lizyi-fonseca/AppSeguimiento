@@ -16,4 +16,5 @@ class roles_administrativos extends Model
         'nis',
         'descripcion'
     ];
+
 }

@@ -1,95 +1,104 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Roles administrativos</title>
- 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
+
 <body>
 
-<div class="container">
-<h1 class="text-center text-secondary">Lista De Roles Administrativos</h1>
+<div class="container mt-4">
+    <h1 class="text-center text-secondary mb-4">Lista De Roles Administrativos</h1>
 
+    <div class="px-5">
 
-<div class="px-5">
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <!-- BOTÓN CREAR -->
+        <div class="mb-3 text-end">
+            <a href="{{ route('RolesAdministrativos.create') }}" 
+               class="btn btn-success btn-sm">
+                <i class="fa-solid fa-circle-plus me-1"></i> Crear Rol
+            </a>
+        </div>
+
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-light">
+                <tr class="text-secondary">
+                    <th>NIS</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse($roles as $rol)
+                    <tr>
+                        <td>{{ $rol->nis }}</td>
+
+                        <td>
+                            @if ($rol->descripcion)
+                                {{ $rol->descripcion }}
+                            @else
+                                <span class="text-secondary">No tiene información</span>
+                            @endif
+                        </td>
+
+                        <td>
+    <div class="btn-group" role="group" aria-label="Acciones">
+        <!-- VER -->
+        <a href="{{ route('RolesAdministrativos.show', $rol->nis) }}"
+           class="btn btn-primary btn-sm mx-1" title="Ver">
+            <i class="fa-solid fa-eye"></i>
+        </a>
+
+        <!-- EDITAR -->
+        <a href="{{ route('RolesAdministrativos.edit', $rol->nis) }}"
+           class="btn btn-warning btn-sm mx-1" title="Editar">
+            <i class="fa-solid fa-pen-clip"></i>
+        </a>
+
+        <!-- ELIMINAR -->
+        <form action="{{ url('Roles_administrativos/delete', $rol->nis) }}" method="POST"
+              class="d-inline form-eliminar mx-1">
+            @csrf
+            @method('DELETE')
+            <button type="button" class="btn btn-danger btn-sm btn-eliminar" title="Eliminar">
+                <i class="fa-regular fa-trash-can"></i>
+            </button>
+        </form>
     </div>
-@endif
-
-<table class="table">
-  <a href="{{route('Roles_administrativos.create')}}" class="btn btn-success btn-sm">Crear<i class="fa-solid fa-circle-plus px-2"></i></a>
-  <thead>
-    <tr class=" text-secondary">
-      <th scope="col">nis</th>
-      <th scope="col">descripcion</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-
-    @forelse($roles as $rol)
-            <tr>
-                <td>{{ $rol->nis }}</td>
-                <td>{{ $rol->descripcion }}</td>
-                <td>
-                   @if ($rol->descripcion)
-                    {{ $rol->descripcion }}
-                  @else
-                  <p class="text-secondary">No tiene información</p>
-                    
-                  @endif
-
-                <td>
-                  <form action="{{ route('Roles_administrativos.delete', $programa->nis) }}" method="POST" class="form-eliminar">
-                      @csrf
-                      @method('DELETE')
-
-                      <button type="button" class="btn btn-danger btn-eliminar">
-    <i class="fa-regular fa-trash-can"></i>
-</button>
-
-              </form>
-                  <a href="{{route('programas.edit', $rol->nis)}}">
-                  <i class="fa-solid fa-pen-clip btn btn-success"></i>
-                  </a>
-                  <a href="{{route('programas.show', $rol->nis)}}">
-                  <i class="fa-solid fa-eye btn btn-primary"></i>
-                  </a>
-                </td>
-            </tr>
-        @empty
-
-        <tr>
-          <td>No hay informacion</td>
-        </tr>
-        @endforelse
-
-
-         </tbody>
-</table>
-</div>
+</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3">No hay información</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 
-
-    <script src="{{asset('js/sweetalert2.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     const botones = document.querySelectorAll(".btn-eliminar");
 
     botones.forEach(function(boton) {
-        boton.addEventListener("click", function () {
+        boton.addEventListener("click", function() {
 
             const formulario = this.closest("form");
 
@@ -107,42 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     formulario.submit();
                 }
             });
-
         });
     });
-
 });
 </script>
 
-<div class="mb-3">
-    <label for="nis" class="form-label">Seleccionar Rol</label>
-    <select name="nis" class="form-select">
-        <option value="">Favor Seleccionar Un Rol</option>
- 
-        @foreach($roles as $rol)
-            <option value="{{ $rol->nis }}">
-                {{ $rol->descripcion }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">NIS</th>
-            <th scope="col">Descripcion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($roles as $rol)
-            <tr>
-                <td>{{ $roles->nis }}</td>
-                <td>{{ $roles->descripcion }}</td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-</div>
 </body>
 </html>
