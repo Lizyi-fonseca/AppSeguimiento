@@ -55,7 +55,7 @@
                 <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Actualizar Regional</h3>
 
                 <!-- Formulario -->
-                <form action="{{ route('Regionales.update', $regional->nis) }}" method="POST">
+                <form action="{{ route('regionales.update', $regional->nis) }}" method="POST">
                     @csrf
 
                     @method('PUT')
@@ -93,7 +93,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-2"><i class="fas fa-save me-2"></i>Actualizar Regionales</button>
-                    <a href="{{route('Regionales.index')}}" class="btn w-100"></i>Volver</a>
+                    <a href="{{route('regionales.index')}}" class="btn w-100"></i>Volver</a>
                 
                 </form>
             </div>

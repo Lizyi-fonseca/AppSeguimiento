@@ -3,116 +3,143 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\roles_administrativos;
+use App\Models\rolesadministrativos;
 use Illuminate\Support\Facades\DB;
 
 class RolesAdministrativosController extends Controller
 {
-     public function index()
-    {
-        // Traer todos los registros de la tabla
-        
-        $roles = roles_administrativos::all();
+  public function index()
+  {
+    // Traer todos los registros de la tabla
 
-        // Envia los datos a la vista
-        return view('Roles_administrativos.index', compact('roles'));
+    $roles = rolesadministrativos::all();
+
+    // Envia los datos a la vista
+    return view('rolesadministrativos.index', compact('roles'));
+  }
+
+  public function create()
+  {
+
+
+    return view('rolesadministrativos.create');
+  }
+
+  public function store(Request $request)
+  {
+
+    $request->validate([
+      'descripcion' => 'required|string|max:200|min:3|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u',
+
+    ], [
+
+      'descripcion.required' => 'La descripción es requerida',
+      'descripcion.regex' => 'La descripción debe ser una cadena de texto',
+      'descripcion.max' => 'La descripción no debe exceder los 200 caracteres',
+      'descripcion.min' => 'La descripción debe tener al menos 3 caracteres',
+
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+
+      $rol = rolesadministrativos::create([
+        'descripcion' => $request['descripcion']
+      ]);
+
+      DB::commit();
+
+      return back()->with('success', 'Creado con exito');
+    } catch (\Throwable $th) {
+
+      DB::rollBack();
+
+      return back()->with('error', 'Error al crear');
     }
+  }
 
-    public function create()
-    {
-        
-
-        return view('Roles_administrativos.create');
-
-    }
-
-    public function store(Request $request){
-
-        $request->validate([
-
-        ],[
-
-      'nis.required' => 'El código esta registrado',
-      'descripcion.required' => 'La descirpción requerida'
-      
-        ]);
-
-       //DB::beginTransaction();
-
-        try {
-            
-
-        } catch (\Throwable $th) {
-            
-
-        }
-    }
-
-    public function destroy($nis){
+  public function destroy($nis)
+  {
 
 
     DB::beginTransaction();
     try {
-       
-    $rol = roles_administrativos::FindOrfail($nis);
 
-    $rol->delete();
+      $rol = rolesadministrativos::FindOrfail($nis);
 
-    DB::commit();
+      $rol->delete();
 
-    return back()->with('success', 'Eliminado con exito');
+      DB::commit();
 
+      return back()->with('success', 'Eliminado con exito');
     } catch (\Exception $e) {
 
-    DB::rollBack();
+      DB::rollBack();
 
       return back()->with('error', 'Erro al eliminar');
     }
+  }
 
-    }
 
-    
-    public function edit($nis){
+  public function edit($nis)
+  {
 
-    $rol = roles_administrativos::FindOrfail($nis);
+    $rol = rolesadministrativos::FindOrfail($nis);
 
-    return view('Roles_administrativos.edit', compact('rol'));
+    return view('rolesadministrativos.edit', compact('rol'));
+  }
 
-    
-    }
-     
-     public function update(Request $request, $nis){
+
+  public function show($nis)
+  {
+
+    $rol = rolesadministrativos::FindOrfail($nis);
+
+    return view('rolesadministrativos.show', compact('rol'));
+  }
+
+
+
+  public function update(Request $request, $nis)
+  {
 
     $request->validate([
-     'nis' => 'required'| 'numeric' | 'dixits_between:4,20',
-     'descripcion' => 'required',
-     
+      'descripcion' => 'required|string|max:200|min:3|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u',
 
-    ],[
 
-      'nis.required' => 'El nis ya esta registrado',
-      'denominacion.required' =>'La denominación es requerida'
+
+    ], [
+
+      'descripcion.required' => 'La descripción es requerida',
+      'descripcion.regex' => 'La descripción debe ser una cadena de texto',
+      'descripcion.max' => 'La descripción no debe exceder los 200 caracteres',
+      'descripcion.min' => 'La descripción debe tener al menos 3 caracteres',
 
 
     ]);
 
+    DB::beginTransaction();
 
-     try {
 
-     $rol = roles_administrativos::FindOrfail($nis);
+    try {
 
-     $rol->update([
-      'nis'=>$request['nis'],
-      'descripcion'=>$request['descripcion']
-     ]);
+      $rol = rolesadministrativos::findOrFail($nis);
 
-     return redirect()->route('Roles_administrativos.index')->with('success', 'Actualización exitosa');
-      
-     } catch (\Throwable $th) {
-      
-     return back()->with('error', 'Error al actualizar');
-      
-     } 
-     }
-    
+      $rol->update([
+        'descripcion' => $request['descripcion']
+      ]);
+
+      DB::commit();
+
+      return redirect()->route('rolesadministrativos.index')->with('success', 'Actualización exitosa');
+    } catch (\Exception $th) {
+
+      DB::rollBack();
+
+      // return $th->getMessage();
+
+      return back()->with('error', 'Error al actualizar');
     }
+  }
+}

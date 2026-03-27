@@ -14,25 +14,29 @@ class ProgramaDeFormacionController extends Controller
     {
         $programas = ProgramaDeFormacion::all();
 
-        return view('Programas.index', compact('programas'));
+        return view('programas.index', compact('programas'));
     }
 
     public function create ()
     {
-      return view('Programas.create');
+      return view('programas.create');
     }
 
     public function store(Request $request){
 
     $request->validate([
       'codigo' => 'required|numeric|digits_between:4,20',
-      'denominacion' => 'required',
+      'denominacion' =>'required|string|max:200|min:3|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u',
       'observaciones' => 'nullable'
 
     ],[
 
       'codigo.required' => 'El codigo ya esta registrado',
-      'denominacion.required' =>'La denominación es requerida'
+      'denominacion.required' => 'La descripción es requerida',
+      'denominacion.regex' => 'La descripción debe ser una cadena de texto',
+      'denominacion.max' => 'La descripción no debe exceder los 200 caracteres',
+      'denominacion.min' => 'La descripción debe tener al menos 3 caracteres',
+
 
     ]);
 
@@ -71,7 +75,7 @@ class ProgramaDeFormacionController extends Controller
 
     $programa = ProgramaDeFormacion::FindOrfail($nis);
 
-    return view('Programas.edit', compact('programa'));
+    return view('programas.edit', compact('programa'));
 
     
     }
@@ -81,7 +85,7 @@ class ProgramaDeFormacionController extends Controller
 
     $programa = ProgramaDeFormacion::FindOrfail($nis);
 
-    return view('Programas.show', compact('programa'));
+    return view('programas.show', compact('programa'));
 
     }
 

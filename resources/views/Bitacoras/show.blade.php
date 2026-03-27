@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bitacoera</title>
+    <title>BItacoras</title>
 
     <!-- Bootstrap 5.2.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,28 +36,24 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-4">
-                <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Actualizar Programa</h3>
+                <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Actualizar Bitacoras</h3>
 
 
                     <div class="mb-3 position-relative">
-                        <label for="" class="form-label">Codigo</label>
-                        <P class="p">{{$programa->codigo}}</p>
+                        <label for="" class="form-label">Nis</label>
+                        <P class="p">{{$bita->nis}}</p>
 
 
                     </div>
 
                     <div class="mb-3 position-relative">
-                        <label for="">Denominación</label>
-                         <P class="p">{{$programa->denominacion}}</p>
+                        <label for="">Archivo</label>
+                         <P class="p">{{$bita->archivo}}</p>
 
                     </div>
 
-                    <div class="mb-3 position-relative">
-                          <label for="">Observaciones</label>
-                        <p >{{$programa->observaciones}}</p>
-
-                    </div>
-                    <a href="{{route('programas.index')}}" class="btn w-100"></i>Volver</a>
+                   
+                    <a href="{{route('bitacora.index')}}" class="btn w-100"></i>Volver</a>
             </div>
         </div>
     </div>

@@ -1,65 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Programas de Formación</title>
+@extends('adminlte::page')
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+@section('title', 'Home')
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- SweetAlert -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <style>
-        body {
-            background-color: #f4f8fc;
-        }
-
-        .card-custom {
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .header-title {
-            color: #0d3b66;
-            font-weight: 600;
-        }
-
-        .btn-primary-custom {
-            background-color: #1b4965;
-            border: none;
-        }
-
-        .btn-primary-custom:hover {
-            background-color: #163d56;
-        }
-
-        .table thead {
-            background-color: #1b4965;
-            color: white;
-        }
-
-        .btn-icon {
-            width: 38px;
-            height: 38px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-        }
-
-        .acciones {
-            display: flex;
-            gap: 6px;
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
 
 <div class="container py-5">
 
@@ -115,23 +59,23 @@
                         </td>
 
                         <td>
-                            <div class="acciones justify-content-center">
+                            <div class="d-flex justify-content-center gap-2">
 
-                                <form action="{{ route('programas.delete', $programa->nis) }}" method="POST">
+                                <form action="{{ route('programas.destroy', $programa->nis) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-icon btn-eliminar">
+                                    <button type="button" class="btn btn-danger  btn-sm">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </form>
 
                                 <a href="{{route('programas.edit', $programa->nis)}}" 
-                                   class="btn btn-warning btn-icon">
+                                   class="btn btn-warning btn-sm ">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </a>
 
                                 <a href="{{route('programas.show', $programa->nis)}}" 
-                                   class="btn btn-info btn-icon text-white">
+                                   class="btn btn-info text-white btn-sm">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
 
@@ -184,5 +128,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-</body>
-</html>
+
+
+@endsection
+
+@section('js')
+<!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@endsection

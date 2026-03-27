@@ -32,9 +32,6 @@
     </style>
 </head>
 <body>
-
-
-
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mt-3" bit="alert">
         {{ session('success') }}
@@ -48,8 +45,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
-
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -57,7 +52,7 @@
                 <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Actualizar Bitacora</h3>
 
                 <!-- Formulario -->
-                <form action="{{ route('programas.update', $bit->nis) }}" method="POST">
+                <form action="{{ route('bitacora.update', $bit->nis) }}" method="POST">
                     @csrf
 
                     @method('PUT')
@@ -87,7 +82,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-2"><i class="fas fa-save me-2"></i>Actualizar Bitacora</button>
-                    <a href="{{route('programas.index')}}" class="btn w-100"></i>Volver</a>
+                    <a href="{{route('bitacora.index')}}" class="btn w-100"></i>Volver</a>
                 
                 </form>
             </div>

@@ -14,12 +14,12 @@ class RegionalesController extends Controller
     {
         $regionales = regionales::all();
 
-        return view('Regionales.index', compact('regionales'));
+        return view('regionales.index', compact('regionales'));
     }
 
     public function create ()
     {
-      return view('Regionales.create');
+      return view('regionales.create');
     }
 
     public function store(Request $request){
@@ -73,7 +73,7 @@ class RegionalesController extends Controller
 
     $regional = Regionales::FindOrfail($nis);
 
-    return view('Regionales.edit', compact('Regionales'));
+    return view('regionales.edit', compact('regional'));
 
     
     }
@@ -83,7 +83,7 @@ class RegionalesController extends Controller
 
     $regional = Regionales::FindOrfail($nis);
 
-    return view('Regionales.show', compact('Regionales'));
+    return view('regionales.show', compact('regional'));
 
     }
 
@@ -117,7 +117,7 @@ class RegionalesController extends Controller
       'observacion'=>$request['observacion']
      ]);
 
-     return redirect()->route('Regionales.index')->with('success', 'Actualización exitosa');
+     return redirect()->route('regionales.index')->with('success', 'Actualización exitosa');
       
      } catch (\Throwable $th) {
       

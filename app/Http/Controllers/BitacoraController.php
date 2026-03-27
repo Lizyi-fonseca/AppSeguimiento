@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BitacoraCreate;
 use App\Models\bitacora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BitacoraController extends Controller
 {
@@ -11,17 +14,19 @@ class BitacoraController extends Controller
     public function index()
     {
         $bit = bitacora::all();
-        return view('Bitacoras.index', compact('bit'));
+        return view('bitacoras.index', compact('bit'));
     }
 
 
     public function create()
     {
-        return view('Bitacoras.create');
+        return view('bitacoras.create');
     }
 
     public function store(Request $request)
     {
+        $usuraio = Auth::user();
+
         $request ->validate([
             'archivo' => 'required|mimes:pdf'
         ],
@@ -30,7 +35,7 @@ class BitacoraController extends Controller
             'archivo.mimes' => 'El archivo debe ser pdf'
         ]);
 
-        
+            
        
         $archivo = $request->file(['archivo']);
 
@@ -47,7 +52,10 @@ class BitacoraController extends Controller
 
              ]);
 
-             return back();
+             Mail::to($usuraio->email)->send(new BitacoraCreate($request->all(), $usuraio, $archivo_user));
+
+
+             return back()->with('success', 'Archivo subido correctamente');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -73,8 +81,7 @@ class BitacoraController extends Controller
     }
 
 
-    public function destroy(bitacora $bitacora)
-    {
+    public function destroy(bitacora $bitacora){
         
     }
 }

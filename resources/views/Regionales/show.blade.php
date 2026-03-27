@@ -66,7 +66,7 @@
 
                     </div>
 
-                    <a href="{{route('Regionales.index')}}" class="btn w-100"></i>Volver</a>
+                    <a href="{{route('regionales.index')}}" class="btn w-100"></i>Volver</a>
             </div>
         </div>
     </div>

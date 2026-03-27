@@ -33,8 +33,6 @@
 </head>
 <body>
 
-
-
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
         {{ session('success') }}

@@ -55,7 +55,7 @@
                 <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Registro De Regionales</h3>
 
                 <!-- Formulario -->
-                <form action="{{ route('Regionales.store') }}" method="POST">
+                <form action="{{ route('regionales.store') }}" method="POST">
                     @csrf
 
                     <div class="mb-3 position-relative">
@@ -91,7 +91,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-2"><i class="fas fa-save me-2"></i>Registrar Regional</button>
-                    <a href="{{route('programas.index')}}" class="btn w-100"></i>Volver</a>
+                    <a href="{{route('regionales.index')}}" class="btn w-100"></i>Volver</a>
                 
                 </form>
             </div>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\aprendices;
+use App\Models\Eps;
+use App\Models\fichadecaracterizacion;
+use App\Models\tiposdocumento;
 use Illuminate\Http\Request;
 
 class AprendicesController extends Controller
@@ -12,8 +15,8 @@ class AprendicesController extends Controller
      */
     public function index()
     {
-        $aprendiz = aprendices::with(['ficha', 'programa', 'eps'])->get();
-        return view('Aprendices.index', compact('aprendiz'));
+        $aprendiz = aprendices::with(['ficha', 'tiposdocumento', 'eps'])->get();
+        return view('aprendices.index', compact('aprendiz'));
     }
 
     /**
@@ -21,7 +24,11 @@ class AprendicesController extends Controller
      */
     public function create()
     {
-        return view('Aprendices.create');
+        $tiposdocumento = tiposdocumento::all();
+        $fichas = fichadecaracterizacion::all();
+        $eps = Eps::all();
+
+        return view('aprendices.create', compact('tiposdocumento', 'fichas', 'eps'));
     }
 
     /**
@@ -30,7 +37,6 @@ class AprendicesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis' => 'required|numeric|unique:tblaprendices,nis',
             'numdoc' => 'required|numeric',
             'nombres' => 'required|string|max:100',
             'apellidos' => 'required|string|max:100',
@@ -40,8 +46,10 @@ class AprendicesController extends Controller
             'correoprs' => 'nullable|email',
             'sexo' => 'required',
             'fechadn' => 'required|date',
+            'tbltipos_documentos_nis' => 'required|exists:tbltipos_documentos,nis',
+            'tblfichasde_caracterizacion_nis' => 'required|exists:tblfichasde_caracterizacion,nis',
+            'tbl_eps_nis' => 'required|exists:tbl_eps,nis'
         ]);
-
         aprendices::create($request->all());
 
         return redirect()->route('Aprendices.index')
@@ -51,27 +59,27 @@ class AprendicesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($nis)
     {
-        $aprendiz = aprendices::findOrFail($id);
-        return view('Aprendices.show', compact('aprendiz'));
+        $aprendiz = aprendices::findOrFail($nis);
+        return view('aprendices.show', compact('aprendiz'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($nis)
     {
-        $aprendiz = aprendices::findOrFail($id);
-        return view('Aprendices.edit', compact('aprendiz'));
+        $aprendiz = aprendices::findOrFail($nis);
+        return view('aprendices.edit', compact('aprendiz'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nis)
     {
-        $aprendiz = aprendices::findOrFail($id);
+        $aprendiz = aprendices::findOrFail($nis);
 
         $request->validate([
             'numdoc' => 'required|numeric',
@@ -83,20 +91,22 @@ class AprendicesController extends Controller
             'correoprs' => 'nullable|email',
             'sexo' => 'required',
             'fechadn' => 'required|date',
+            'tbltipos_documentos_nis' => 'required|exists:tbltipos_documentos,nis',
+            'tblfichasde_caracterizacion_nis' => 'required|exists:tblfichasde_caracterizacion,nis',
+            'tbl_eps_nis' => 'required|exists:tbl_eps,nis'
         ]);
 
         $aprendiz->update($request->all());
 
-        return redirect()->route('Aprendices.index')
+        return redirect()->route('aprendices.index')
             ->with('success', 'Aprendiz actualizado correctamente');
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($nis)
     {
-        $aprendiz = aprendices::findOrFail($id);
+        $aprendiz = aprendices::findOrFail($nis);
         $aprendiz->delete();
 
         return redirect()->route('Aprendices.index')

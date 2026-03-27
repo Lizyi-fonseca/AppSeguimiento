@@ -12,6 +12,16 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+
+    const ROL_SIN_ROL = 0;
+    const ROL_APRENDIZ = 1;
+    const ROL_INSTRUCTOR = 2;
+    const ROL_COORDINADOR = 3;
+    const ROL_SUPERADMINISTRADOR = 4;
+    const ROL_ADMINISTRADOR = 5;
+
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +31,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
+        
     ];
 
     /**
@@ -45,4 +57,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+     public function roles_admi(){
+        return $this->belongsTo(rolesadministrativos::class, 'rol');
+     }
+
+
+     public function aprendiz(){
+        return $this->hasOne(aprendices::class, 'users_id');
+
+     }
+
+
+     public function instructor(){
+        return $this->hasOne(instructores::class, 'users_id');
+
+     }
+
+     
 }

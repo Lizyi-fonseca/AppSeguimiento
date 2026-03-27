@@ -25,22 +25,27 @@ class aprendices extends Model
         'fechadn',
         'tbltipos_documentos_nis',
         'tblfichasde_caracterizacion_nis',
-        'tblfichasde_caracterizacion_tblprogramasde_formacion_nis',
-        'tbl_eps_nis'
+        'tbl_eps_nis',
+        'users_id'
     ];
 
     public function ficha()
     {
-        return $this->belongsTo(fichasde_caracterizacion::class, 'tblfichasde_caracterizacion_nis', 'nis');
+        return $this->belongsTo(fichadecaracterizacion::class, 'tblfichasde_caracterizacion_nis', 'nis');
     }
 
-    public function programa()
+    public function tiposdocumento()
     {
-        return $this->belongsTo(ProgramaDeFormacion::class, 'tblfichasde_caracterizacion_tblprogramasde_formacion_nis', 'nis');
+        return $this->belongsTo(tiposdocumento::class, 'tbltipos_documentos_nis', 'nis');
     }
 
     public function eps()
     {
-        return $this->belongsTo(eps::class, 'tbl_eps_nis', 'nis');
+        return $this->belongsTo(Eps::class, 'tbl_eps_nis', 'nis');
+    }
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'users_id', 'nis');
     }
 }
+

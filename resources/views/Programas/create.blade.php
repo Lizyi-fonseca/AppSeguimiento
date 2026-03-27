@@ -33,8 +33,6 @@
 </head>
 <body>
 
-
-
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
         {{ session('success') }}
@@ -54,14 +52,11 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-4">
-                <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Registro de Programas</h3>
+                <h3 class="card-title mb-4 text-center text-primary"><i class="fas fa-book-reader me-2"></i>Registro De Programas</h3>
 
                 <!-- Formulario -->
                 <form action="{{ route('programas.store') }}" method="POST">
                     @csrf
-
-
-                    
 
                     <div class="mb-3 position-relative">
                         <input type="text" class="form-control" name="codigo" placeholder="Código" >

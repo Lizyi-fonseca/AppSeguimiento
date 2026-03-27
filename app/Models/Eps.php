@@ -25,7 +25,4 @@ protected $fillable =[
 
 ];
 
-
-
-
 }
